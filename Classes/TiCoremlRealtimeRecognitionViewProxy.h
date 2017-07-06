@@ -18,9 +18,20 @@
     TiCaptureSession *_captureSession;
     UIView *_previewView;
     VNCoreMLRequest *_request;
+    CVImageBufferRef _currentSampleBuffer;
 }
 
 - (void)adjustFrame;
+
+#pragma mark Public API's
+
+- (void)startRecognition:(id)unused;
+
+- (void)stopRecognition:(id)unused;
+
+- (id)isRecognizing:(id)unused;
+
+- (void)takePicture:(id)value;
 
 @end
 

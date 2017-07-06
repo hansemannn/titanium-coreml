@@ -18,6 +18,7 @@
 {
     if (_captureSession == nil) {
         _captureSession = [[TiCaptureSession alloc] initWithCompletionHandler:^(CVImageBufferRef sampleBuffer) {
+            _currentSampleBuffer = sampleBuffer;
             [self processRecognitionWithSampleBuffer:sampleBuffer];
         }];
         
@@ -114,6 +115,17 @@
 - (id)isRecognizing:(id)unused
 {
     return NUMBOOL([[[self captureSession] captureSession] isRunning]);
+}
+
+- (void)takePicture:(id)value
+{
+    ENSURE_SINGLE_ARG(value, KrollCallback);
+    
+    CIImage *ciImage = [CIImage imageWithCVPixelBuffer:_currentSampleBuffer];
+    CIContext *context = [CIContext contextWithOptions:nil];
+    CGImageRef image = [context createCGImage:ciImage fromRect:CGRectMake(0, 0, CVPixelBufferGetWidth(_currentSampleBuffer), CVPixelBufferGetHeight(_currentSampleBuffer))];
+    
+    [(KrollCallback*)value call:@[@{@"image": [[TiBlob alloc] initWithImage:[UIImage imageWithCGImage:image]]}] thisObject:self];
 }
 
 @end
