@@ -16,10 +16,7 @@ Use the native iOS 11+ "CoreML" framework in Axway Titanium.
 - `stopRecognition()`
 
 #### Events
-- `classification`
-  - `classifications` (Array<Object>)
-    - `identifier` (String)
-    - `classification` (Float)
+- `classification` (`Event.classifications`)
 
 ## Example
 ```js
