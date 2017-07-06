@@ -11,7 +11,6 @@
 typedef void(^TiCaptureSessionCompletionHandler)(CVImageBufferRef sampleBuffer);
 
 @interface TiCaptureSession : NSObject<AVCaptureVideoDataOutputSampleBufferDelegate> {
-    UIViewController *_viewController;
     TiCaptureSessionCompletionHandler _completionHandler;
 }
 

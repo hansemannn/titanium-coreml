@@ -8,15 +8,18 @@ Use the native iOS 11+ "CoreML" framework in Axway Titanium.
 
 ## API's
 
-### `createRealtimeRecognition(args)`
+### `createRealtimeRecognitionView(args)`
 - `model` (String - _Required_)
 
 #### Methods
 - `startRecognition()`
 - `stopRecognition()`
+- `isRecognizing()` (Boolean)
 
 #### Events
 - `classification` (`Event.classifications`)
+
+### `isSupported()` (Boolean)
 
 ## Example
 ```js

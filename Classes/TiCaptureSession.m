@@ -25,7 +25,6 @@
 {
     _captureSession = [[AVCaptureSession alloc] init];
     _videoOutput = [[AVCaptureVideoDataOutput alloc] init];
-    _viewController = [[UIViewController alloc] init];
     
     [[self captureSession] beginConfiguration];
     
@@ -54,9 +53,6 @@
     _previewLayer.videoGravity = AVLayerVideoGravityResizeAspect;
     _previewLayer.connection.videoOrientation = AVCaptureVideoOrientationPortrait;
     
-    _previewLayer.frame = _viewController.view.bounds;
-    [_viewController.view.layer addSublayer:_previewLayer];
-    
     NSDictionary *settings = @{
         (id)kCVPixelBufferPixelFormatTypeKey: [NSNumber numberWithUnsignedInt:kCVPixelFormatType_32BGRA]
     };
@@ -78,15 +74,12 @@
 
 - (void)start
 {
-    [[TiApp app] showModalController:_viewController animated:YES];
     [[self captureSession] startRunning];
 }
 
 - (void)stop
 {
-    [_viewController dismissViewControllerAnimated:YES completion:^{
-        [[self captureSession] stopRunning];
-    }];
+    [[self captureSession] stopRunning];
 }
 
 // MARK: AVCaptureVideoDataOutputSampleBufferDelegate

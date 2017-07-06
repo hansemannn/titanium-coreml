@@ -7,18 +7,20 @@
 
 #if IS_IOS_11
 
-#import "TiProxy.h"
+#import "TiViewProxy.h"
 #import "TiCaptureSession.h"
 
 #import <CoreML/CoreML.h>
 #import <Vision/Vision.h>
 
-@interface TiCoremlRealtimeRecognitionProxy : TiProxy {
+@interface TiCoremlRealtimeRecognitionViewProxy : TiViewProxy {
     @private
     TiCaptureSession *_captureSession;
     UIView *_previewView;
     VNCoreMLRequest *_request;
 }
+
+- (void)adjustFrame;
 
 @end
 

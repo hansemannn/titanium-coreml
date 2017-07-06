@@ -29,10 +29,12 @@
 		AA747D9F0F9514B9006C5449 /* TiCoreml_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* TiCoreml_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 		DB8AA2BA1F0DD7920011DF6F /* TiCaptureSession.h in Headers */ = {isa = PBXBuildFile; fileRef = DBD7DB081F0DCF270080BCC9 /* TiCaptureSession.h */; };
-		DB8AA2BB1F0DD7920011DF6F /* TiCoremlRealtimeRecognitionProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = DBD7DB071F0DCF270080BCC9 /* TiCoremlRealtimeRecognitionProxy.h */; };
+		DB8AA2BB1F0DD7920011DF6F /* TiCoremlRealtimeRecognitionViewProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = DBD7DB071F0DCF270080BCC9 /* TiCoremlRealtimeRecognitionViewProxy.h */; };
 		DB8AA2BC1F0DD79A0011DF6F /* TiCaptureSession.m in Sources */ = {isa = PBXBuildFile; fileRef = DBD7DB091F0DCF270080BCC9 /* TiCaptureSession.m */; };
-		DB8AA2BD1F0DD79A0011DF6F /* TiCoremlRealtimeRecognitionProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = DBD7DB061F0DCF270080BCC9 /* TiCoremlRealtimeRecognitionProxy.m */; };
+		DB8AA2BD1F0DD79A0011DF6F /* TiCoremlRealtimeRecognitionViewProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = DBD7DB061F0DCF270080BCC9 /* TiCoremlRealtimeRecognitionViewProxy.m */; };
 		DBD7DB041F0DAE720080BCC9 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBD7DB031F0DAE6B0080BCC9 /* CoreML.framework */; };
+		DBF1F31E1F0E9391000D0100 /* TiCoremlRealtimeRecognitionView.h in Headers */ = {isa = PBXBuildFile; fileRef = DBF1F31C1F0E9391000D0100 /* TiCoremlRealtimeRecognitionView.h */; };
+		DBF1F31F1F0E9391000D0100 /* TiCoremlRealtimeRecognitionView.m in Sources */ = {isa = PBXBuildFile; fileRef = DBF1F31D1F0E9391000D0100 /* TiCoremlRealtimeRecognitionView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,10 +58,12 @@
 		D2AAC07E0554694100DB518D /* libti.coreml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libti.coreml.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBD7DB031F0DAE6B0080BCC9 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
 		DBD7DB051F0DAE8E0080BCC9 /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
-		DBD7DB061F0DCF270080BCC9 /* TiCoremlRealtimeRecognitionProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TiCoremlRealtimeRecognitionProxy.m; path = Classes/TiCoremlRealtimeRecognitionProxy.m; sourceTree = "<group>"; };
-		DBD7DB071F0DCF270080BCC9 /* TiCoremlRealtimeRecognitionProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TiCoremlRealtimeRecognitionProxy.h; path = Classes/TiCoremlRealtimeRecognitionProxy.h; sourceTree = "<group>"; };
+		DBD7DB061F0DCF270080BCC9 /* TiCoremlRealtimeRecognitionViewProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TiCoremlRealtimeRecognitionViewProxy.m; path = Classes/TiCoremlRealtimeRecognitionViewProxy.m; sourceTree = "<group>"; };
+		DBD7DB071F0DCF270080BCC9 /* TiCoremlRealtimeRecognitionViewProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TiCoremlRealtimeRecognitionViewProxy.h; path = Classes/TiCoremlRealtimeRecognitionViewProxy.h; sourceTree = "<group>"; };
 		DBD7DB081F0DCF270080BCC9 /* TiCaptureSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TiCaptureSession.h; path = Classes/TiCaptureSession.h; sourceTree = "<group>"; };
 		DBD7DB091F0DCF270080BCC9 /* TiCaptureSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TiCaptureSession.m; path = Classes/TiCaptureSession.m; sourceTree = "<group>"; };
+		DBF1F31C1F0E9391000D0100 /* TiCoremlRealtimeRecognitionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TiCoremlRealtimeRecognitionView.h; path = Classes/TiCoremlRealtimeRecognitionView.h; sourceTree = "<group>"; };
+		DBF1F31D1F0E9391000D0100 /* TiCoremlRealtimeRecognitionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TiCoremlRealtimeRecognitionView.m; path = Classes/TiCoremlRealtimeRecognitionView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,8 +117,10 @@
 				24DD6CF81134B3F500162E58 /* TiCoremlModule.m */,
 				DBD7DB081F0DCF270080BCC9 /* TiCaptureSession.h */,
 				DBD7DB091F0DCF270080BCC9 /* TiCaptureSession.m */,
-				DBD7DB071F0DCF270080BCC9 /* TiCoremlRealtimeRecognitionProxy.h */,
-				DBD7DB061F0DCF270080BCC9 /* TiCoremlRealtimeRecognitionProxy.m */,
+				DBF1F31C1F0E9391000D0100 /* TiCoremlRealtimeRecognitionView.h */,
+				DBF1F31D1F0E9391000D0100 /* TiCoremlRealtimeRecognitionView.m */,
+				DBD7DB071F0DCF270080BCC9 /* TiCoremlRealtimeRecognitionViewProxy.h */,
+				DBD7DB061F0DCF270080BCC9 /* TiCoremlRealtimeRecognitionViewProxy.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -136,7 +142,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB8AA2BA1F0DD7920011DF6F /* TiCaptureSession.h in Headers */,
-				DB8AA2BB1F0DD7920011DF6F /* TiCoremlRealtimeRecognitionProxy.h in Headers */,
+				DBF1F31E1F0E9391000D0100 /* TiCoremlRealtimeRecognitionView.h in Headers */,
+				DB8AA2BB1F0DD7920011DF6F /* TiCoremlRealtimeRecognitionViewProxy.h in Headers */,
 				AA747D9F0F9514B9006C5449 /* TiCoreml_Prefix.pch in Headers */,
 				24DD6CF91134B3F500162E58 /* TiCoremlModule.h in Headers */,
 				24DE9E1111C5FE74003F90F6 /* TiCoremlModuleAssets.h in Headers */,
@@ -214,7 +221,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB8AA2BC1F0DD79A0011DF6F /* TiCaptureSession.m in Sources */,
-				DB8AA2BD1F0DD79A0011DF6F /* TiCoremlRealtimeRecognitionProxy.m in Sources */,
+				DB8AA2BD1F0DD79A0011DF6F /* TiCoremlRealtimeRecognitionViewProxy.m in Sources */,
+				DBF1F31F1F0E9391000D0100 /* TiCoremlRealtimeRecognitionView.m in Sources */,
 				24DD6CFA1134B3F500162E58 /* TiCoremlModule.m in Sources */,
 				24DE9E1211C5FE74003F90F6 /* TiCoremlModuleAssets.m in Sources */,
 			);

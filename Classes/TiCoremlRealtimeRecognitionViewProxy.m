@@ -7,10 +7,10 @@
 
 #if IS_IOS_11
 
-#import "TiCoremlRealtimeRecognitionProxy.h"
+#import "TiCoremlRealtimeRecognitionViewProxy.h"
 #import "TiUtils.h"
 
-@implementation TiCoremlRealtimeRecognitionProxy
+@implementation TiCoremlRealtimeRecognitionViewProxy
 
 #pragma mark Internal
 
@@ -21,17 +21,18 @@
             [self processRecognitionWithSampleBuffer:sampleBuffer];
         }];
         
-        // Setup preview if provided
-        if ([self valueForKey:@"preview"] != nil) {
-            AVCaptureVideoPreviewLayer *previewLayer = [_captureSession previewLayer];
-            
-            _previewView = [self valueForKey:@"preview"];
-            [[_previewView layer] addSublayer:previewLayer];
-            previewLayer.frame = _previewView.bounds;
-        }
+        AVCaptureVideoPreviewLayer *previewLayer = [_captureSession previewLayer];
+        
+        [[[self view] layer] addSublayer:previewLayer];
+        [self adjustFrame];
     }
     
     return _captureSession;
+}
+
+- (void)adjustFrame
+{
+    [_captureSession previewLayer].frame = [self view].bounds;
 }
 
 - (VNCoreMLRequest *)request

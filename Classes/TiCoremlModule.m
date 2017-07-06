@@ -9,7 +9,6 @@
 #import "TiBase.h"
 #import "TiHost.h"
 #import "TiUtils.h"
-#import "TiCoremlRealtimeRecognitionProxy.h"
 
 @implementation TiCoremlModule
 
