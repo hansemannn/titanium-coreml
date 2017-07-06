@@ -25,15 +25,33 @@ Use the native iOS 11+ "CoreML" framework in Axway Titanium.
 ```js
 var CoreML = require('ti.coreml');
 
-var Recognition = CoreML.createRealtimeRecognition({
-    model: 'Inceptionv3.mlmodelc' // Compiled .mlmodel
+var recognitionView = CoreML.createRealtimeRecognitionView({
+    top: 40,
+    height: 300,
+    model: 'Inceptionv3.mlmodelc'
 });
 
-Recognition.addEventListener('classification', function(e) {
+recognitionView.addEventListener('classification', function(e) {
     Ti.API.info(e);
 });
 
-Recognition.startRecognition();
+var win = Ti.UI.createWindow({
+    backgroundColor: '#fff'
+});
+
+win.add(recognitionView);
+
+var triggerButton = Ti.UI.createButton({
+    bottom: 40,
+    title: 'Start Real-Time Recognition'
+});
+
+triggerButton.addEventListener('click', function() {
+    recognitionView.startRecognition();
+});
+
+win.add(triggerButton);
+win.open();
 ```
 
 ## Build

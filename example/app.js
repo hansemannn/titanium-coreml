@@ -1,10 +1,21 @@
+/**
+ * Ti.CoreML
+ * v1.0.0 Beta
+ 
+ * @author Hans Knöchel
+ * @copyright Axway Appcelerator
+ * 
+ */
+
 var CoreML = require('ti.coreml');
 
-var Recognition = CoreML.createRealtimeRecognition({
+var recognitionView = CoreML.createRealtimeRecognitionView({
+    top: 40,
+    height: 300,
     model: 'Inceptionv3.mlmodelc'
 });
 
-Recognition.addEventListener('classification', function(e) {
+recognitionView.addEventListener('classification', function(e) {
     Ti.API.info(e);
 });
 
@@ -12,13 +23,16 @@ var win = Ti.UI.createWindow({
     backgroundColor: '#fff'
 });
 
-var btn = Ti.UI.createButton({
+win.add(recognitionView);
+
+var triggerButton = Ti.UI.createButton({
+    bottom: 40,
     title: 'Start Real-Time Recognition'
 });
 
-btn.addEventListener('click', function() {
-    Recognition.startRecognition();
+triggerButton.addEventListener('click', function() {
+    recognitionView.startRecognition();
 });
 
-win.add(btn);
+win.add(triggerButton);
 win.open();
