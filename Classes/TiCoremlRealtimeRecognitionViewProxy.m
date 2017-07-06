@@ -18,7 +18,9 @@
 {
     if (_captureSession == nil) {
         _captureSession = [[TiCaptureSession alloc] initWithCompletionHandler:^(CVImageBufferRef sampleBuffer) {
-            _currentSampleBuffer = sampleBuffer;
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                _currentSampleBuffer = sampleBuffer;
+            });
             [self processRecognitionWithSampleBuffer:sampleBuffer];
         }];
         
@@ -66,7 +68,7 @@
             for (VNClassificationObservation *observation in observations) {
                 [result addObject:@{
                     @"identifier": observation.identifier,
-                    @"classification": NUMFLOAT(observation.confidence),
+                    @"confidence": NUMFLOAT(observation.confidence),
                 }];
             }
             TiThreadPerformOnMainThread(^{
