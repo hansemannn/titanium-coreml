@@ -28,7 +28,7 @@
     
     [[self captureSession] beginConfiguration];
     
-    [[self captureSession] setSessionPreset:AVCaptureSessionPresetMedium];
+    [[self captureSession] setSessionPreset:AVCaptureSessionPresetPhoto];
     
     AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     NSError *videoInputError = nil;

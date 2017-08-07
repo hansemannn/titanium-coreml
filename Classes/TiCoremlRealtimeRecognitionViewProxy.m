@@ -18,9 +18,7 @@
 {
     if (_captureSession == nil) {
         _captureSession = [[TiCaptureSession alloc] initWithCompletionHandler:^(CVImageBufferRef sampleBuffer) {
-            dispatch_sync(dispatch_get_main_queue(), ^{
                 _currentSampleBuffer = sampleBuffer;
-            });
             [self processRecognitionWithSampleBuffer:sampleBuffer];
         }];
         
