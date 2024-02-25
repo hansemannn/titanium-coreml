@@ -1,0 +1,5 @@
+build
+dist
+.DS_Store
+titanium-coreml.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad
+titanium-coreml.xcodeproj/xcuserdata/*.xcuserdatad

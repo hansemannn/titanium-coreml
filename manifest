@@ -2,17 +2,18 @@
 # this is your module manifest and used by Titanium
 # during compilation, packaging, distribution, etc.
 #
-version: 1.0.1
+version: 2.0.0
 apiversion: 2
-architectures: armv7 arm64 i386 x86_64
+architectures: arm64 x86_64
+mac: false
 description: titanium-coreml
-author: Hans Knoechel
+author: Hans Knöchel
 license: Apache 2
-copyright: Copyright (c) 2017 by Axway Appcelerator
+copyright: Copyright (c) 2018-present by Hans Knöchel
 
 # these should not be edited
 name: titanium-coreml
 moduleid: ti.coreml
-guid: f39ef2bb-26ef-409b-aad4-c9e70b1016b5
+guid: eb79624b-04d4-463c-9f43-d212de1b53e3
 platform: iphone
-minsdk: 6.2.0
+minsdk: 12.0.0
