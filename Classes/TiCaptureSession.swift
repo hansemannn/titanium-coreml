@@ -33,35 +33,34 @@ class TiCaptureSession: NSObject {
     captureSession.sessionPreset = .photo
     
     guard let captureDevice = AVCaptureDevice.default(for: .video) else {
-      fatalError("Could not create capture device")
+      return logErrorAndFail("Could not create capture device")
     }
     
     guard let videoInput = try? AVCaptureDeviceInput(device: captureDevice) else {
-      fatalError("Could not create video input")
+      return logErrorAndFail("Could not create video input")
     }
     
     guard captureSession.canAddInput(videoInput) else {
-      fatalError("Could not add video input to capture session")
+      return logErrorAndFail("Could not add video input to capture session")
     }
     
     captureSession.addInput(videoInput)
     
     previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
     previewLayer.videoGravity = .resizeAspect
-    
-    if #available(iOS 17.0, *) {
-      previewLayer.connection?.videoRotationAngle = 90
-    } else {
+
+//    if #available(iOS 17.0, *) {
+//      previewLayer.connection?.videoRotationAngle = 90
+//    } else {
       previewLayer.connection?.videoOrientation = .portrait
-    }
+//    }
     
     videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA]
     videoOutput.alwaysDiscardsLateVideoFrames = true
     videoOutput.setSampleBufferDelegate(self, queue: queue)
     
-    
     guard captureSession.canAddOutput(videoOutput) else {
-      fatalError("Could not add video output to capture session")
+      return logErrorAndFail("Could not add video output to capture session")
     }
     
     captureSession.addOutput(videoOutput)

@@ -9,6 +9,7 @@ import CoreVideo
 import TitaniumKit
 import UIKit
 
+@objc(TiCoremlRealtimeRecognitionView)
 class TiCoremlRealtimeRecognitionView: TiUIView {
   
   override func frameSizeChanged(_ frame: CGRect, bounds: CGRect) {

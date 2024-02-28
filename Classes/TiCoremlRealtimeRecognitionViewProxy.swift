@@ -10,28 +10,44 @@ import TitaniumKit
 import UIKit
 import Vision
 
+@objc(TiCoremlRealtimeRecognitionViewProxy)
 class TiCoremlRealtimeRecognitionViewProxy: TiViewProxy {
 
   private var currentSampleBuffer: CVImageBuffer?
   private var previewView: UIView?
   lazy private var request: VNCoreMLRequest = {
-    guard let model = try? MLModel(contentsOf: TiUtils.toURL(self.value(forKey: "model") as? String, proxy: self)) else {
-      fatalError("Error creating model")
+    guard let url = TiUtils.toURL(self.value(forKey: "model") as? String, proxy: self) else {
+      logErrorAndFail("Cannot load model from URL")
+      fatalError()
+    }
+    
+    if url.pathExtension == "modelc" {
+      logErrorAndFail("Please pass the .model file, not the .modelc")
     }
 
-    guard let visionModel = try? VNCoreMLModel(for: model) else {
-      fatalError("Error creating vision model")
-
+    guard let model = try? MLModel(contentsOf: MLModel.compileModel(at: url)) else {
+      logErrorAndFail("Error creating model")
+      fatalError()
     }
-      
+
+    var visionModel: VNCoreMLModel!
+    
+    do {
+      visionModel = try VNCoreMLModel(for: model)
+    } catch {
+      logErrorAndFail("Error creating vision model: \(error.localizedDescription)")
+      fatalError()
+    }
+
     let _request = VNCoreMLRequest(model: visionModel) { request, error in
-      guard let observations = request.results else {
+      guard let observations = request.results as? [VNClassificationObservation] else {
         return
       }
       
       let result: [[String: Any]] = observations.map {
         [
-          "identifier": $0.uuid,
+          "identifier": $0.identifier,
+          "uuid": $0.uuid.uuidString,
           "confidence": $0.confidence
         ]
       }
@@ -46,20 +62,26 @@ class TiCoremlRealtimeRecognitionViewProxy: TiViewProxy {
     return _request;
   }()
   
-  lazy private var captureSession: TiCaptureSession = {
-    let session = TiCaptureSession(completionHandler: { imageBuffer in
+  private var _captureSession: TiCaptureSession!
+  
+  private func getCaptureSession() -> TiCaptureSession {
+    guard _captureSession == nil else {
+      return _captureSession
+    }
+    
+    _captureSession = TiCaptureSession(completionHandler: { imageBuffer in
       self.currentSampleBuffer = imageBuffer
       self.processRecognitionWithSampleBuffer()
     })
     
-    self.view.layer.addSublayer(session.previewLayer)
+    self.view.layer.addSublayer(_captureSession.previewLayer)
     self.adjustFrame()
     
-    return session
-  }()
+    return _captureSession
+  }
   
   func adjustFrame() {
-    captureSession.previewLayer.frame = view.bounds;
+    getCaptureSession().previewLayer.frame = view.bounds;
   }
   
   private func processRecognitionWithSampleBuffer() {
@@ -69,7 +91,7 @@ class TiCoremlRealtimeRecognitionViewProxy: TiViewProxy {
     do {
       try handler.perform([request])
     } catch {
-      fatalError("Error processing buffer: \(error.localizedDescription)")
+      logErrorAndFail("Error processing buffer: \(error.localizedDescription)")
     }
   }
 }
@@ -78,29 +100,31 @@ class TiCoremlRealtimeRecognitionViewProxy: TiViewProxy {
 
 extension TiCoremlRealtimeRecognitionViewProxy {
   
-  @objc func startRecognition(unused: Any?) {
-    if captureSession.captureSession.isRunning {
-      NSLog("[ERROR] Trying to start a capture session that is already running!")
-      return
+  @objc(startRecognition:)
+  func startRecognition(unused: Any?) {
+    if getCaptureSession().captureSession.isRunning {
+      return logErrorAndFail("Trying to start a capture session that is already running!")
     }
     
-    captureSession.start()
+    getCaptureSession().start()
   }
   
-  @objc func stopRecognition(unused: Any?) {
-    if !captureSession.captureSession.isRunning {
-      NSLog("[ERROR] Trying to stop a capture session that is not running!");
-      return
+  @objc(stopRecognition:)
+  func stopRecognition(unused: Any?) {
+    if !getCaptureSession().captureSession.isRunning {
+      return logErrorAndFail("Trying to stop a capture session that is not running!");
     }
     
-    captureSession.stop()
+    getCaptureSession().stop()
   }
   
-  @objc func isRecognizing(unused: Any?) -> Bool {
-    return captureSession.captureSession.isRunning
+  @objc(isRecognizing:)
+  func isRecognizing(unused: Any?) -> Bool {
+    return getCaptureSession().captureSession.isRunning
   }
   
-  @objc func takePicture(value: [Any]) {
+  @objc(takePicture:)
+  func takePicture(value: [Any]) {
     guard let sampleBuffer = currentSampleBuffer,
           let calback = value.first as? KrollCallback else {
       return
